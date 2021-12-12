@@ -1,0 +1,1 @@
+Netflix copy. Tam dinamikləşdirilməyib. Əlavə olunacaq:admin panel dinamikləşdiriləcək sayt 70% dinamikdir tam dinamikləşdiriləcək
