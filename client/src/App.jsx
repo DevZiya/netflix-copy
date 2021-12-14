@@ -4,10 +4,12 @@ import Register from "./pages/register/Register";
 import Watch from "./pages/watch/Watch";
 import Login from "./pages/login/Login";
 import {BrowserRouter as Router,Switch,Route, Redirect} from 'react-router-dom'
+import { useContext } from "react";
+import {AuthContext} from './authContext/AuthContext'
 
 const App = () => {
 
-  const user=false
+  const {user}=useContext(AuthContext)
 
   return (
     <Router>
@@ -25,7 +27,7 @@ const App = () => {
           user &&
           <>
         <Route path='/movies'> 
-          <Home type="movies"/>
+          <Home type="movie"/>
         </Route>
         <Route path='/series'> 
           <Home type='series' />

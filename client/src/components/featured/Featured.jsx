@@ -1,36 +1,38 @@
 import { InfoOutlined, PlayArrow } from "@material-ui/icons";
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
 import "./featured.scss";
-import axios from 'axios'
+import axios from "axios";
 
-export default function Featured({ type }) {
-  const [content,setContent]=useState({})
+export default function Featured({ type, setGenre }) {
+  const [content, setContent] = useState({});
 
-  useEffect(()=>{
-    try{
-      const getRandomContent = async () =>{
-        const res = await axios.get(`/movies/random?type${type}`,
-        {
+  useEffect(() => {
+    try {
+      const getRandomContent = async () => {
+        const res = await axios.get(`/movies/random?type${type}`, {
           headers: {
             token:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxYjRmNzJmZjRhMmI1MDQ1MDM1NjFmMCIsImlzQWRtaW4iOnRydWUsImlhdCI6MTYzOTMyNDMyNiwiZXhwIjoxNjM5NzU2MzI2fQ.P72XCYDwxVfC7faFvR6M9LQdTNdCl-rxkMI_GAOM-8Y",
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxYjRmNzJmZjRhMmI1MDQ1MDM1NjFmMCIsImlzQWRtaW4iOnRydWUsImlhdCI6MTYzOTMyNDMyNiwiZXhwIjoxNjM5NzU2MzI2fQ.P72XCYDwxVfC7faFvR6M9LQdTNdCl-rxkMI_GAOM-8Y",
           },
-        }
-        )
-        setContent(res.data[0])
-      }
-      getRandomContent()
+        });
+        setContent(res.data[0]);
+      };
+      getRandomContent();
+    } catch (err) {
+      console.log(err);
     }
-    catch(err){console.log(err);}
-  },[type])
-
+  }, [type]);
 
   return (
     <div className="featured">
       {type && (
         <div className="category">
           <span>{type === "movie" ? "Movies" : "Series"}</span>
-          <select name="genre" id="genre">
+          <select
+            name="genre"
+            id="genre"
+            onChange={(e) => setGenre(e.target.value)}
+          >
             <option>Genre</option>
             <option value="adventure">Adventure</option>
             <option value="comedy">Comedy</option>
@@ -48,15 +50,10 @@ export default function Featured({ type }) {
           </select>
         </div>
       )}
-      <img
-        src={content.img}
-        alt=""
-      />
+      <img src={content.img} alt="" />
       <div className="info">
         <h1>{content.imgTitle}</h1>
-        <span className="desc">
-          {content.desc}
-        </span>
+        <span className="desc">{content.desc}</span>
         <div className="buttons">
           <button className="play">
             <PlayArrow />
